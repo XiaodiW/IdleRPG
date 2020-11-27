@@ -55,7 +55,7 @@ namespace Currencies.Tests {
 			var exchangeRate = 10f;
 			var bank = new Bank(exchangeRate);
 			var fiveDollars = Money.Dollar(5);
-			var hundredSek = Money.SEK(10);
+			var hundredSek = Money.SEK(100);
 			var sum = fiveDollars.Add(hundredSek); // Wallet || MoneyExpression (it is 5$ & 100 SEK)
 			var dollars = bank.ExchangeToDollar(sum); // Bank takes Wallet || MoneyExpression
 			Assert.AreEqual(Money.Dollar(15), dollars);
@@ -75,11 +75,11 @@ namespace Currencies.Tests {
 			var bank = new Bank(exchangeRates);
 			var fiveDollars = Money.Dollar(5);
 			var hundredSek = Money.SEK(100);
-			var twentyEuros = Money.EUR(5);
+			var twentyEuros = Money.EUR(10);
 			var sum = fiveDollars.Add(hundredSek); // Wallet || MoneyExpression (it is 5$ & 100 SEK)
 			sum = sum.Add(twentyEuros);
 			var dollars = bank.ExchangeTo(sum,"Dollar"); // Bank takes Wallet || MoneyExpression
-			Assert.AreEqual(Money.Dollar(25), dollars);
+			Assert.AreEqual(Money.Dollar(27), dollars);
 		}
 		/*
 		// TODO 4:
@@ -92,7 +92,39 @@ namespace Currencies.Tests {
 		
 		*/
 		
+		[Test]
+		public void ResultForMultipleCurrenciesToEUR() {
+			var bank = new Bank(1);
+			var fiveDollars = Money.Dollar(5);
+			var hundredSek = Money.SEK(100);
+			var tenEuros = Money.EUR(10);
+			var sum = fiveDollars.Add(hundredSek); // Wallet || MoneyExpression (it is 5$ & 100 SEK)
+			sum = sum.Add(tenEuros);
+			var dollars = bank.ExchangeTo(sum,"EUR"); // Bank takes Wallet || MoneyExpression
+			Assert.AreEqual(Money.EUR(22), dollars);
+		}
+		[Test]
+		public void ResultForMultipleCurrenciesToSEK() {
+			var bank = new Bank(1);
+			var fiveDollars = Money.Dollar(5);
+			var hundredSek = Money.SEK(100);
+			var sum = fiveDollars.Add(hundredSek); 
+			var wallet = sum.Times(2);
+			var result = bank.ExchangeTo(wallet,"EUR"); 
+			Assert.AreEqual(Money.EUR(24), result);
+		}
 		
+		[Test]
+		public void ResultForWalletTimes() {
+			var bank = new Bank(1);
+			var fiveDollars = Money.Dollar(5);
+			var hundredSek = Money.SEK(100);
+			var tenEuros = Money.EUR(10);
+			var sum = fiveDollars.Add(hundredSek); // Wallet || MoneyExpression (it is 5$ & 100 SEK)
+			sum = sum.Add(tenEuros);
+			var dollars = bank.ExchangeTo(sum,"SEK"); // Bank takes Wallet || MoneyExpression
+			Assert.AreEqual(Money.SEK(270), dollars);
+		}
 		
 		
 		// maybe you want to change new Bank(exchangeRates) to:

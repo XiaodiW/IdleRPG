@@ -30,7 +30,6 @@ namespace Currencies {
 		Dictionary<string, float> exchangeRate = new Dictionary<string, float>(){{"Dollar",1f},{"SEK",0.1f},{"EUR",1.2f}};
 		public float GetExchangeRate(string from, string to) {
 			return exchangeRate[from] / exchangeRate[to];
-			// throw new System.NotImplementedException();
 		}
 	}
 }

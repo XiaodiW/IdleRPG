@@ -5,5 +5,7 @@ namespace Currencies {
 		Money ConvertTo(Bank bank, string currency);
 
 		IMoney Add(Money added);
+
+		IMoney Times(int factor);
 	}
 }

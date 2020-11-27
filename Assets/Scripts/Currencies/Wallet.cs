@@ -23,11 +23,9 @@ namespace Currencies {
 			foreach (var money in monies)
 			{
 				if (newMoney.currency == "")
-				{
 					newMoney = bank.ExchangeToDollar(money);
-				}
-
-				newMoney.Add(bank.ExchangeToDollar(money));
+				else
+					newMoney = (Money)newMoney.Add(bank.ExchangeToDollar(money));
 			}
 			return newMoney;
 			// var aDollar = bank.ExchangeToDollar(this.monies[0]);
@@ -43,7 +41,7 @@ namespace Currencies {
 				if (newMoney.currency == "")
 					newMoney = bank.ExchangeTo(money, to);
 				else
-					newMoney.Add(bank.ExchangeTo(money, to));
+					newMoney = (Money)newMoney.Add(bank.ExchangeTo(money, to));
 			}
 			return newMoney;
 		}
@@ -51,6 +49,14 @@ namespace Currencies {
 		public IMoney Add(Money addend) {
 			this.monies.Add(addend);
 			return new Wallet(monies);
+		}
+		
+		public IMoney Times(int factor) {
+			for (int i = 0; i < monies.Count; i++)
+			{
+				monies[i] = (Money)monies[i].Times(factor);
+			}
+			return this;
 		}
 	}
 }

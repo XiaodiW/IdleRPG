@@ -45,7 +45,7 @@ namespace Currencies {
 			return new Money(amount, "EUR");
 		}
 		
-		public Money Times(int factor) {
+		public IMoney Times(int factor) {
 			return new Money(this.amount * factor, this.currency);
 		}
 
