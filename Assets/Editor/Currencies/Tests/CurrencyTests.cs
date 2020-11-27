@@ -55,7 +55,7 @@ namespace Currencies.Tests {
 			var exchangeRate = 10f;
 			var bank = new Bank(exchangeRate);
 			var fiveDollars = Money.Dollar(5);
-			var hundredSek = Money.SEK(100);
+			var hundredSek = Money.SEK(10);
 			var sum = fiveDollars.Add(hundredSek); // Wallet || MoneyExpression (it is 5$ & 100 SEK)
 			var dollars = bank.ExchangeToDollar(sum); // Bank takes Wallet || MoneyExpression
 			Assert.AreEqual(Money.Dollar(15), dollars);

@@ -52,7 +52,7 @@ namespace Currencies {
 		public IMoney Add(Money addend) {
 			if(addend.currency == this.currency)
 				return new Money(this.amount + addend.amount, this.currency);
-			List<Money> monies =new List<Money>{addend,this};
+			List<Money> monies =new List<Money>{this,addend};
 			return new Wallet(monies);
 		}
 	}

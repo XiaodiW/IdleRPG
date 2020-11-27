@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Currencies {
 	public class Wallet : IMoney {
@@ -16,12 +17,23 @@ namespace Currencies {
 			this.monies = monies;
 		}
 
-		// public Money ConvertToDollar(Bank bank)
-		// {
-		// 	var aDollar = bank.ExchangeToDollar(this.monies[0]);
-		// 	var bDollar = bank.ExchangeToDollar(this.monies[1]);
-		// 	return bank.ExchangeToDollar(aDollar.Add(bDollar));
-		// }
+		public Money ConvertToDollar(Bank bank)
+		{
+			var newMoney = new Money(0,"");
+			foreach (var money in monies)
+			{
+				if (newMoney.currency == "")
+				{
+					newMoney = bank.ExchangeToDollar(money);
+				}
+
+				newMoney.Add(bank.ExchangeToDollar(money));
+			}
+			return newMoney;
+			// var aDollar = bank.ExchangeToDollar(this.monies[0]);
+			// var bDollar = bank.ExchangeToDollar(this.monies[1]);
+			// return bank.ExchangeToDollar(aDollar.Add(bDollar));
+		}
 
 		public Money ConvertTo(Bank bank, string to)
 		{
@@ -29,13 +41,11 @@ namespace Currencies {
 			foreach (var money in monies)
 			{
 				if (newMoney.currency == "")
-				{
 					newMoney = bank.ExchangeTo(money, to);
-				}
-
-				newMoney.Add(bank.ExchangeTo(money, to));
+				else
+					newMoney.Add(bank.ExchangeTo(money, to));
 			}
-			return bank.ExchangeTo(newMoney, to);
+			return newMoney;
 		}
 		
 		public IMoney Add(Money addend) {
