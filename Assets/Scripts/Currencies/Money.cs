@@ -1,9 +1,11 @@
+using System.Collections.Generic;
+
 namespace Currencies {
 	public class Money : IMoney {
 		readonly int amount;
-		readonly string currency;
+		public readonly string currency;
 
-		Money(int amount, string currency) {
+		public Money(int amount, string currency) {
 			this.amount = amount;
 			this.currency = currency;
 		}
@@ -14,6 +16,11 @@ namespace Currencies {
 
 		public Money ConvertToDollar(Bank bank) {
 			return new Money((int)(this.amount * bank.GetDollarExchangeRate(this.currency)), "Dollar");
+		}
+
+		public Money ConvertTo(Bank bank, string currency)
+		{
+			return new Money((int)(this.amount * bank.GetExchangeRate(this.currency,currency)), currency);
 		}
 
 		public override bool Equals(object obj) {
@@ -34,6 +41,10 @@ namespace Currencies {
 			return new Money(amount, "SEK");
 		}
 		
+		public static Money EUR(int amount) {
+			return new Money(amount, "EUR");
+		}
+		
 		public Money Times(int factor) {
 			return new Money(this.amount * factor, this.currency);
 		}
@@ -41,7 +52,8 @@ namespace Currencies {
 		public IMoney Add(Money addend) {
 			if(addend.currency == this.currency)
 				return new Money(this.amount + addend.amount, this.currency);
-			return new Wallet(addend, this);
+			List<Money> monies =new List<Money>{addend,this};
+			return new Wallet(monies);
 		}
 	}
 }

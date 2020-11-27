@@ -60,28 +60,28 @@ namespace Currencies.Tests {
 			var dollars = bank.ExchangeToDollar(sum); // Bank takes Wallet || MoneyExpression
 			Assert.AreEqual(Money.Dollar(15), dollars);
 		}
-		/*
-		// Exercise 3:
-		this will require Add to work with IMoney, not only with Money.
-		this again will mean, that the wallet works with IMoney instead of Money.
-		Hint:
 		
-		There will be two wallets:
-		First: Wallet(5USD, 100SEK)
-		Second: Wallet(FirstWallet, 10EUR) 
+		// Exercise 3:
+		// this will require Add to work with IMoney, not only with Money.
+		// this again will mean, that the wallet works with IMoney instead of Money.
+		// Hint:
+		//
+		// There will be two wallets:
+		// First: Wallet(5USD, 100SEK)
+		// Second: Wallet(FirstWallet, 10EUR) 
 		[Test]
 		public void ResultForMultipleCurrencies() {
-			var exchangeRates = ??; // euro -> usd 2:1 sek -> usd 10:1
+			var exchangeRates = 1; // euro -> usd 2:1 sek -> usd 10:1
 			var bank = new Bank(exchangeRates);
 			var fiveDollars = Money.Dollar(5);
 			var hundredSek = Money.SEK(100);
-			var twentyEuros = Money.Euro(10);
+			var twentyEuros = Money.EUR(5);
 			var sum = fiveDollars.Add(hundredSek); // Wallet || MoneyExpression (it is 5$ & 100 SEK)
 			sum = sum.Add(twentyEuros);
-			var dollars = bank.ExchangeToDollar(sum); // Bank takes Wallet || MoneyExpression
+			var dollars = bank.ExchangeTo(sum,"Dollar"); // Bank takes Wallet || MoneyExpression
 			Assert.AreEqual(Money.Dollar(25), dollars);
 		}
-		
+		/*
 		// TODO 4:
 		this will require Add and Times to work with IMoney, not only with Money.
 		this again will mean, that the wallet works with IMoney instead of Money.
