@@ -1,6 +1,6 @@
 namespace Currencies {
 	public class Money : IMoney {
-		int amount;
+		readonly int amount;
 		readonly string currency;
 
 		Money(int amount, string currency) {
@@ -10,6 +10,10 @@ namespace Currencies {
 		
 		public override string ToString() {
 			return $"{this.amount} {this.currency}";
+		}
+
+		public Money ConvertToDollar(Bank bank) {
+			return new Money((int)(this.amount * bank.GetDollarExchangeRate(this.currency)), "Dollar");
 		}
 
 		public override bool Equals(object obj) {

@@ -4,21 +4,20 @@ namespace Currencies {
 		}
 
 		public Money ExchangeToDollar(IMoney money) {
-			// check, if it is a wallet or money
-			// => exchange / add if necessary <-- this is covered by a test
-			// bonus (there is no test for this, just refactoring / code clean-up):
-			// if it is money, and it is the correct currency, we can just return it as it is.
-			return Money.Dollar(15);
+			return money.ConvertToDollar(this);
 		}
-	}
 
-	public class Wallet : IMoney {
-		readonly Money a;
-		readonly Money b;
-
-		public Wallet(Money a, Money b) {
-			this.a = a;
-			this.b = b;
+		public float GetDollarExchangeRate(string from) {
+			if (from == "Dollar")
+				return 1f;
+			if (from == "SEK")
+				return 0.1f;
+			throw new System.Exception($"Can not convert {from} to Dollar.");
+		}
+		
+		// TODO 3 extended version: multiply the exchangeRate from->USD with USD->to (e.g.: SEK->USD & USD->EUR ==> SEK->EUR
+		public float GetExchangeRate(string from, string to) {
+			throw new System.NotImplementedException();
 		}
 	}
 }
