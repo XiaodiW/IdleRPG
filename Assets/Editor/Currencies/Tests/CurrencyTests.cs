@@ -89,7 +89,6 @@ namespace Currencies.Tests {
 		(($5 + 100SEK) + 10 EUR) => EUR
 		(($5 + 100SEK) + 10 EUR) => SEK
 		(($5 + 100SEK) * 2) => EUR
-		
 		*/
 		
 		[Test]
@@ -103,19 +102,9 @@ namespace Currencies.Tests {
 			var dollars = bank.ExchangeTo(sum,"EUR"); // Bank takes Wallet || MoneyExpression
 			Assert.AreEqual(Money.EUR(22), dollars);
 		}
-		[Test]
-		public void ResultForMultipleCurrenciesToSEK() {
-			var bank = new Bank(1);
-			var fiveDollars = Money.Dollar(5);
-			var hundredSek = Money.SEK(100);
-			var sum = fiveDollars.Add(hundredSek); 
-			var wallet = sum.Times(2);
-			var result = bank.ExchangeTo(wallet,"EUR"); 
-			Assert.AreEqual(Money.EUR(24), result);
-		}
 		
 		[Test]
-		public void ResultForWalletTimes() {
+		public void ResultForMultipleCurrenciesToSEK() {
 			var bank = new Bank(1);
 			var fiveDollars = Money.Dollar(5);
 			var hundredSek = Money.SEK(100);
@@ -125,6 +114,19 @@ namespace Currencies.Tests {
 			var dollars = bank.ExchangeTo(sum,"SEK"); // Bank takes Wallet || MoneyExpression
 			Assert.AreEqual(Money.SEK(270), dollars);
 		}
+		
+		[Test]
+		public void ResultForWalletTimes() {
+			var bank = new Bank(1);
+			var fiveDollars = Money.Dollar(5);
+			var hundredSek = Money.SEK(100);
+			var sum = fiveDollars.Add(hundredSek); 
+			var wallet = sum.Times(2);
+			var result = bank.ExchangeTo(wallet,"EUR"); 
+			Assert.AreEqual(Money.EUR(24), result);
+		}
+		
+
 		
 		
 		// maybe you want to change new Bank(exchangeRates) to:
