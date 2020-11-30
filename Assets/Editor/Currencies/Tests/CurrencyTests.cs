@@ -126,15 +126,10 @@ namespace Currencies.Tests {
 			Assert.AreEqual(Money.EUR(24), result);
 		}
 		
-
-		
-		
 		// maybe you want to change new Bank(exchangeRates) to:
 		// new Bank(); bank.AddExchangeRate(from: "Dollar", to: "Euro", rate: 2.0);
 	}
-
 	
-
 	// case 1: multiple classes in one namespace
 	namespace Equal {
 		public class SameType {
